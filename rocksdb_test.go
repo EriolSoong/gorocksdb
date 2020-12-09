@@ -29,6 +29,17 @@ func TestOpenDB(t *testing.T) {
 		return
 	}
 
+	db.Put(writeOptions, "key1", "value1")
+	db.Put(writeOptions, "key2", "value2")
+	db.Put(writeOptions, "key3", "value3")
+	db.Put(writeOptions, "赵信", "50")
+	db.Put(writeOptions, "阿阿", "20")
+	db.Put(writeOptions, "吃货", "30")
+	db.Put(writeOptions, "阿乐", "10")
+	db.Put(writeOptions, "hello1", "world1")
+	db.Put(writeOptions, "hello2", "world2")
+	db.Put(writeOptions, "hello3", "world3")
+
 	readOptions := CreateReadOptions()
 	defer readOptions.Destroy()
 	val ,err := db.Get(readOptions, "hello")

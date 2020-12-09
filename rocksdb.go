@@ -4,7 +4,9 @@ package gorocksdb
 //#cgo LDFLAGS: -L${SRCDIR}/lib -lrocksdb -lstdc++ -lm
 //#include "c.h"
 import "C"
-import "errors"
+import (
+	"errors"
+)
 
 type RocksDB struct {
 	cdb *C.rocksdb_t
@@ -12,7 +14,6 @@ type RocksDB struct {
 
 func OpenDB(opts *Options, dbPath string) (*RocksDB, error) {
 	var cerr *C.char
-
 	db := new(RocksDB)
 	db.cdb = C.rocksdb_open(opts.cOpts, C.CString(dbPath), &cerr)
 	if cerr != nil {
@@ -47,6 +48,15 @@ func (db *RocksDB) Get(rOpts *ReadOptions, key string) (string, error) {
 	}
 
 	return C.GoString(val), nil
+}
+
+func (db *RocksDB) Write(wOpts *WriteOptions, wBatch *WriteBatch) error  {
+	var cerr *C.char
+	C.rocksdb_write(db.cdb, wOpts.cWriteOpts, wBatch.cwBath, &cerr)
+	if cerr != nil {
+		return errors.New(C.GoString(cerr))
+	}
+	return nil
 }
 
 func (db *RocksDB) Close() {

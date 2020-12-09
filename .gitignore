@@ -1,2 +1,5 @@
 .idea/
 */*.a
+tmp/
+tmp/*
+*_in_jydb_gorocksdb

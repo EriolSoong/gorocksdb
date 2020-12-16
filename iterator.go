@@ -10,6 +10,13 @@ type Iterator struct {
 }
 
 func CreateIterator(db *RocksDB, rOpts *ReadOptions) (*Iterator, error) {
+	if db == nil {
+		return nil, errors.New("db is nil")
+	}
+	if rOpts == nil {
+		return nil, errors.New("rOpts is nil")
+	}
+
 	iter := new(Iterator)
 	iter.cIter = C.rocksdb_create_iterator(db.cdb, rOpts.cReadOpts)
 	if iter.cIter == nil {

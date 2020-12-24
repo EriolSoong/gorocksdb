@@ -7,11 +7,11 @@ import (
 )
 
 var (
-	db 			*RocksDB
-	dbPath 		string
-	options 	*Options
-	writeOpts 	*WriteOptions
-	readOpts 	*ReadOptions
+	db        *RocksDB
+	dbPath    string
+	options   *Options
+	writeOpts *WriteOptions
+	readOpts  *ReadOptions
 )
 
 func init() {
@@ -22,13 +22,13 @@ func init() {
 	options.IncreaseParallelism(runtime.NumCPU())
 	options.OptimizeLevelStyleCompaction(0)
 
-	var data = map[string]string {
-		"alia": 	"20",
-		"alice": 	"30",
-		"eric":		"28",
-		"Eriol":	"18",
-		"nora":		"18",
-		"zara":		"1000",
+	var data = map[string]string{
+		"alia":  "20",
+		"alice": "30",
+		"eric":  "28",
+		"Eriol": "18",
+		"nora":  "18",
+		"zara":  "1000",
 	}
 
 	var err error

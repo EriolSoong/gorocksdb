@@ -1,6 +1,7 @@
 package gorocksdb
 
 import (
+	"fmt"
 	"os"
 	"runtime"
 	"testing"
@@ -50,11 +51,12 @@ func TestRocksDB_Put(t *testing.T) {
 
 	readOptions := CreateReadOptions()
 	defer readOptions.Destroy()
-	val ,err := db.Get(readOptions, "hello")
+	val, err := db.Get(readOptions, "hello")
 	if err != nil {
 		t.Error(err.Error())
 	}
 	t.Log(val)
+	fmt.Println(val)
 }
 
 func BenchmarkRocksDB_Put(b *testing.B) {

@@ -12,6 +12,9 @@ type RocksDB struct {
 	cdb *C.rocksdb_t
 }
 
+// 初始化数据库
+// opts: 初始化数据库之前首先要构建并配置Options，详情见Options对象
+// dbPath: 数据库的存储路径，指定到文件夹
 func OpenDB(opts *Options, dbPath string) (*RocksDB, error) {
 	var cerr *C.char
 	db := new(RocksDB)
@@ -56,6 +59,17 @@ func (db *RocksDB) Write(wOpts *WriteOptions, wBatch *WriteBatch) error  {
 	if cerr != nil {
 		return errors.New(C.GoString(cerr))
 	}
+	return nil
+}
+
+func (db *RocksDB) Delete(wOpts *WriteOptions, key string) error {
+	var cerr *C.char
+
+	C.rocksdb_delete(db.cdb, wOpts.cWriteOpts, C.CString(key), C.size_t(len(key)), &cerr)
+	if cerr != nil {
+		return errors.New(C.GoString(cerr))
+	}
+
 	return nil
 }
 

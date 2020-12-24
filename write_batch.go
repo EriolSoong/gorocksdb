@@ -20,6 +20,7 @@ func CreateBatchFrom(reserved string) *WriteBatch {
 		C.rocksdb_writebatch_create_from(C.CString(reserved), C.size_t(len(reserved))),
 	}
 }
+
 func (wBatch *WriteBatch) Count() int {
 	return int(C.rocksdb_writebatch_count(wBatch.cwBath))
 }
